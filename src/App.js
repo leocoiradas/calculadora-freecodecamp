@@ -28,7 +28,7 @@ function App() {
       <div className='appContainer'>
         <Screen input = {input}/>
         {createButtons(calculator)}
-        <ClearButton>Clear</ClearButton>
+        <ClearButton setClear={()=>setInput('')}>Clear</ClearButton>
       </div>
     </div>
   );
