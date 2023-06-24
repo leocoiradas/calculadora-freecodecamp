@@ -1,16 +1,18 @@
 import './App.css';
-import './components/Row';
-import './components/Button';
 import Row from './components/Row';
+import Screen from  './components/Screen';
+import ClearButton from './components/Clear';
+import { useState } from 'react';
+import {evaluate} from 'mathjs'
 import freeCodeCampLogo from './images/freecodecamp-logo.png';
 function App() {
-  const calculator = [[1, 2, 3, '+'], [4, 5, 6, '-'], [7, 8, 9, '*'], ['=', 0, '.', '/']]
-  const createButtons = (arr) => {
-    const arrButtons = []
-      for (let i = 0; i < arr.length; i++) {
-        arrButtons.push(Row(arr[i]))
-      }
-      return(arrButtons)
+  const calculator = [[1, 2, 3, "+"],[4, 5, 6, "-"],[7, 8, 9, "*"],["=", 0, ".", "/"]];
+  const [input, setInput] = useState("");
+  const insertInput = (val) => {
+    setInput(input + val);
+    }
+    const result = () => {
+      setInput(evaluate(input))
     }
   return (
     <div className="App">
@@ -21,7 +23,9 @@ function App() {
           alt='Logo de freeCodeCamp' />
       </div>
       <div className='appContainer'>
-        {createButtons(calculator)}
+        <Screen input = {input}/>
+        {Row(calculator, insertInput, result)}
+        <ClearButton setClear={()=>setInput('')}>Clear</ClearButton>
       </div>
     </div>
   );
